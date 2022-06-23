@@ -4,6 +4,7 @@ import fs from "fs";
 import { parseStream } from "fast-csv";
 import { Gender } from "../constants/gender.constants";
 import { IMatch, IMatchedList, INameAndGender } from "../interfaces/match.interface";
+import { Logger } from "../helpers/logger.helper";
 
 @Service()
 export class MatchService {
@@ -128,6 +129,7 @@ export class MatchService {
 
       parseStream(readableStream, options)
         .on("error", (e) => {
+          Logger.error(e.message);
           reject(e);
         })
         .on("data", (row) => {
@@ -159,9 +161,9 @@ export class MatchService {
 
     fs.writeFile(fileName, outputData, (err) => {
       if (err) {
-        console.error(err);
+        Logger.error(err.message);
       }
-      // file written successfully
+      Logger.info("File successsfully created!");
     });
   }
 

@@ -2,6 +2,7 @@ import { Inject, Service } from "typedi";
 import { Request, Response, NextFunction } from "express";
 import { MatchService } from "../services/match.service";
 import { IMatch, IMatchedList, INameAndGender } from "../interfaces/match.interface";
+import { Logger } from "../helpers/logger.helper";
 
 @Service()
 export class MatchController {
@@ -23,6 +24,7 @@ export class MatchController {
 
       return res.status(200).json({ status: true, message });
     } catch (e) {
+      Logger.error(e.message);
       next(e);
     }
   };
@@ -46,6 +48,7 @@ export class MatchController {
       }
       return res.status(200).json({ status: true, matches: resolvedList });
     } catch (e) {
+      Logger.error(e.message);
       next(e);
     }
   };
@@ -69,6 +72,7 @@ export class MatchController {
       }
       return res.status(200).json({ status: true, matches: resolvedList });
     } catch (e) {
+      Logger.error(e.message);
       next(e);
     }
   };
