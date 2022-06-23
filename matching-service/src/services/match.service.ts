@@ -145,9 +145,9 @@ export class MatchService {
    * @method outputTxt
    * @async
    * @param {IMatchedList} matchedList
-   * @returns {Promise<void>}
+   * @returns {Promise<string>}
    */
-  async outputTxt(matchedList: IMatchedList[], fileName: string = "./output.txt"): Promise<void> {
+  async outputTxt(matchedList: IMatchedList[], fileName: string = "./output.txt"): Promise<string> {
     let outputData: string = "";
     let names: IMatch;
 
@@ -165,6 +165,8 @@ export class MatchService {
       }
       Logger.info("File successsfully created!");
     });
+
+    return outputData;
   }
 
   /**

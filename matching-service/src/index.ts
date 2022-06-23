@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 import morgan from "morgan";
+import cors from "cors";
 import MatchRoute from "./routes/match.route";
 import { LoggerStream } from "./helpers/logger.helper";
 
@@ -13,6 +14,7 @@ app.use(
     createParentPath: true,
   }),
 );
+app.use(cors());
 app.use(morgan("combined", { stream: LoggerStream }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

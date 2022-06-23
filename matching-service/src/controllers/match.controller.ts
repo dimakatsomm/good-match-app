@@ -40,13 +40,14 @@ export class MatchController {
     try {
       const nameList = await this.matchService.resolveCsvToArray(req.files.csv);
       let resolvedList: IMatchedList[];
+      let message: string = "";
       if (nameList.length) {
         resolvedList = await this.matchService.bulkMatch(nameList);
-        this.matchService.outputTxt(resolvedList);
+        message = await this.matchService.outputTxt(resolvedList);
       } else {
         resolvedList = [];
       }
-      return res.status(200).json({ status: true, matches: resolvedList });
+      return res.status(200).json({ status: true, matches: resolvedList, message });
     } catch (e) {
       Logger.error(e.message);
       next(e);
@@ -64,13 +65,14 @@ export class MatchController {
     try {
       const nameList = await this.matchService.resolveCsvToArray(req.files.csv);
       let resolvedList: IMatchedList[];
+      let message: string = "";
       if (nameList.length) {
         resolvedList = await this.matchService.bulkMatch(nameList, true);
-        this.matchService.outputTxt(resolvedList, "./average-output.txt");
+        message = await this.matchService.outputTxt(resolvedList, "./average-output.txt");
       } else {
         resolvedList = [];
       }
-      return res.status(200).json({ status: true, matches: resolvedList });
+      return res.status(200).json({ status: true, matches: resolvedList, message });
     } catch (e) {
       Logger.error(e.message);
       next(e);
